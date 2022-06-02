@@ -32,7 +32,7 @@
                                 <th>No</th>
                                 <th>User</th>
                                 <th>Points</th>
-                                <th>Questions</th>
+                                {{-- <th>Questions</th> --}}
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -45,11 +45,11 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $result->user->name }}</td>
                                 <td>{{ $result->total_points }}</td>
-                                <td>
+                                {{-- <td>
                                     @foreach($result->questions as $key => $question)
                                         <span class="badge badge-info">{{ $question->question_text }}</span>
                                     @endforeach
-                                </td>
+                                </td> --}}
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         <a href="{{ route('admin.results.show', $result->id) }}" class="btn btn-success">
