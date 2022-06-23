@@ -15,6 +15,10 @@ class Question extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function subCategory(){
+        return $this->belongsTo(Category::class,'topic_categori_id','id')->withDefault(['name'=>'-']);
+    }
+
     public function questionOptions(){
         return $this->hasMany(Option::class);
     }

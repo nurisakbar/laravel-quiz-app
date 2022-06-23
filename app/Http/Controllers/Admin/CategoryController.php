@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Admin\CategoryRequest;
 use Illuminate\Support\Str;
-
+use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
    
@@ -24,9 +24,10 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
-    public function store(CategoryRequest $request): RedirectResponse
+    public function store(Request $request)
     {
         $request['slug'] = Str::random(32);
+        // return $request->all();
         Category::create($request->all());
         return redirect()->route('admin.categories.index')->with([
             'message' => 'successfully created !',

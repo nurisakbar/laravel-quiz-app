@@ -30,6 +30,19 @@
                         <label for="name">name</label>
                         <input type="text" class="form-control" id="name" placeholder="name" name="name" value="{{ old('name', $category->name) }}" />
                     </div>
+                    <div class="form-group">
+                        <label for="name">Main Category</label>
+                        <select class="form-control" name="categori_id">
+                            <option value="">--</option>
+                            @foreach(\App\Models\Category::all() as $categories)
+                                <option 
+                                @if($categories->id==$category->categori_id)
+                                selected="selected"
+                                @endif
+                                value="{{ $categories->id }}">{{ $categories->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary btn-block">{{ __('Save')}}</button>
                 </form>
             </div>

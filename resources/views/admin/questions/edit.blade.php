@@ -38,6 +38,14 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="category">Category Topic</label>
+                        <select class="form-control"  name="topic_categori_id" id="category">
+                            @foreach($categories as $id => $category)
+                                <option {{ $id == $question->topic_categori_id ? 'selected' : null }} value="{{ $id }}">{{ $category }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     @php $i=1 @endphp
                     @foreach($question->questionOptions as $question)
                     <div class="form-group">

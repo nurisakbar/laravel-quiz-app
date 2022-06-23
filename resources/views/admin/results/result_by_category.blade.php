@@ -10,7 +10,7 @@
         <div class="card">
             <div class="card-header py-3 d-flex">
                 <h6 class="m-0 font-weight-bold text-primary">
-                    {{ __('result') }}
+                    Category : {{ $category->name }}
                 </h6>
                 <div class="ml-auto">
                     <a href="{{ route('admin.results.create') }}" class="btn btn-primary">
@@ -54,6 +54,9 @@
                                     <div class="btn-group btn-group-sm">
                                         <a href="{{ route('admin.results.show', $result->id) }}" class="btn btn-success">
                                             <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a href="/admin/results/{{$result->id}}?type=pdf&category={{ $category->id}}" class="btn btn-success">
+                                            <i class="fa fa-file-pdf"></i>
                                         </a>
                                         <a href="{{ route('admin.results.edit', $result->id) }}" class="btn btn-info">
                                             <i class="fa fa-pencil-alt"></i>

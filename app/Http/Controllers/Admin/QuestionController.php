@@ -9,7 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Admin\QuestionRequest;
 use App\Models\Category;
 use App\Models\Option;
-
+use Illuminate\Http\Request;
 class QuestionController extends Controller
 {
    
@@ -27,9 +27,9 @@ class QuestionController extends Controller
         return view('admin.questions.create', compact('categories'));
     }
 
-    public function store(QuestionRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $question = Question::create($request->validated());
+        $question = Question::create($request->all());
         for($optionIndex=0;$optionIndex<=(count($request->option)-1);$optionIndex++){
             Option::create(
                 [
@@ -58,9 +58,9 @@ class QuestionController extends Controller
         return view('admin.questions.edit', compact('question', 'categories'));
     }
 
-    public function update(QuestionRequest $request, Question $question): RedirectResponse
+    public function update(Request $request, Question $question): RedirectResponse
     {
-        $question->update($request->validated());
+        $question->update($request->all());
         for($optionIndex=0;$optionIndex<=(count($request->option)-1);$optionIndex++){
 
             $option = Option::find($request->id[$optionIndex]);

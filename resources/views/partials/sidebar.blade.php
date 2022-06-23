@@ -43,11 +43,11 @@
                     <span>{{ __('Question') }}</span></a>
             </li>
 
-            <li class="nav-item {{ request()->is('admin/options') || request()->is('admin/options') ? 'active' : '' }}">
+            {{-- <li class="nav-item {{ request()->is('admin/options') || request()->is('admin/options') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.options.index') }}">
                     <i class="fas fa-cogs"></i>
                     <span>{{ __('Option') }}</span></a>
-            </li>
+            </li> --}}
 
             <li class="nav-item {{ request()->is('admin/results') || request()->is('admin/results') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.results.index') }}">

@@ -24,6 +24,7 @@
                     <thead>
                             <tr>
                                 <th>Question Text</th>
+                                <th>Topic</th>
                                 <th>Points</th>
                             </tr>
                         </thead>
@@ -31,6 +32,7 @@
                             @foreach($result->questions as $question)
                                 <tr>
                                     <td>{{ $question->question_text }}</td>
+                                    <td>{{ $question->subCategory->name }}</td>
                                     <td>{{ $question->pivot->points }}</td>
                                 </tr>
                             @endforeach

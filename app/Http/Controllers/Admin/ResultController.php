@@ -8,15 +8,24 @@ use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Admin\ResultRequest;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use PDF;
 
 class ResultController extends Controller
 {
    
-    public function index(): View
+    public function index(Request $request): View
     {
-        $results = Result::all();
-
-        return view('admin.results.index', compact('results'));
+        if($request->has('categori_id')){
+            $results    = Result::where('category_id',$request->categori_id)->get();
+            $category   = Category::where('id',$request->get('categori_id'))->first();
+            return view('admin.results.result_by_category', compact('results','category'));
+        }else{
+            $categories = Category::where('categori_id',null)->get();
+            return view('admin.results.category', compact('categories'));
+        }
+        
     }
 
     public function create(): View
@@ -37,8 +46,19 @@ class ResultController extends Controller
         ]);
     }
 
-    public function show(Result $result): View
+    public function show(Result $result,Request $request)
     {
+        if($request->has('type'))
+        {
+            if($request->type == 'pdf')
+            {
+                $data['result'] = $result;
+                $data['categories'] = Category::where('categori_id',$request->category)->get();
+                $data['category'] = \App\Models\Category::findOrFail($_GET['category']);
+                $pdf = PDF::loadView('admin.results.result_pdf', $data)->setPaper('A4', 'potrait');
+                return $pdf->stream('laporan-'.$data['category']->name.'-'.$data['result']->user->name.'.pdf');
+            }
+        }
         return view('admin.results.show', compact('result'));
     }
 

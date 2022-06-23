@@ -29,7 +29,8 @@
                     @csrf
                     <div class="form-group">
                         <label for="question_text">{{ __('question text') }}</label>
-                        <input type="text" class="form-control" id="question_text" placeholder="{{ __('question text') }}" name="question_text" value="{{ old('question_text') }}" />
+                        <textarea class="form-control" id="question_text" placeholder="{{ __('question text') }}" name="question_text">{{ old('question_text') }}</textarea>
+                        {{-- <input type="text" class="form-control" id="question_text" placeholder="{{ __('question text') }}" name="question_text" value="{{ old('question_text') }}" /> --}}
                     </div>
                     <div class="form-group">
                         <label for="category">{{ __('Category') }}</label>
@@ -39,6 +40,16 @@
                             @endforeach
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label for="category">Category Topic</label>
+                        <select class="form-control" name="topic_categori_id" id="category">
+                            @foreach($categories as $id => $category)
+                                <option value="{{ $id }}">{{ $category }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
 
                     @for($i=1;$i<=4;$i++)
                     <div class="form-group">
@@ -62,3 +73,25 @@
 
 </div>
 @endsection
+@push('script-alt')
+<script src="https://cdn.ckeditor.com/4.16.2/standard-all/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('question_text', {
+      extraPlugins: 'embed,autoembed,image2,justify',
+      height: 200,
+      // Load the default contents.css file plus customizations for this sample.
+      contentsCss: [
+        'http://cdn.ckeditor.com/4.16.2/full-all/contents.css',
+        'https://ckeditor.com/docs/ckeditor4/4.16.2/examples/assets/css/widgetstyles.css'
+      ],
+      // Setup content provider. See https://ckeditor.com/docs/ckeditor4/latest/features/media_embed
+      embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
+      // Configure the Enhanced Image plugin to use classes instead of styles and to disable the
+      // resizer (because image size is controlled by widget styles or the image takes maximum
+      // 100% of the editor width).
+      image2_alignClasses: ['image-align-left', 'image-align-center', 'image-align-right'],
+      image2_disableResizer: true,
+      removeButtons: 'PasteFromWord'
+    });
+  </script>
+  @endpush
